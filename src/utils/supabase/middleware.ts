@@ -30,6 +30,21 @@ export async function updateSession(request: NextRequest) {
   // refreshing the auth token
   const {data: {user},} = await supabase.auth.getUser()
 
+    // ルートパス（/）での認証状態による分岐
+  if (request.nextUrl.pathname === '/') {
+    if (user) {
+      // ログイン済み：ダッシュボードにリダイレクト
+      const url = request.nextUrl.clone()
+      url.pathname = '/'
+      return NextResponse.redirect(url)
+    } else {
+      // 未ログイン：マーケティングページにリダイレクト
+      const url = request.nextUrl.clone()
+      url.pathname = '/landing'
+      return NextResponse.redirect(url)
+    }
+  }
+
   if(
     !user &&
     !request.nextUrl.pathname.includes('/landing') &&

@@ -2,8 +2,16 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request){
   const {searchParams} = new URL(request.url)
-  const language = searchParams.get('language') || 'english'
-  const level = searchParams.get('level') || 'beginner'
+
+  const language = searchParams.get('language')
+  const level = searchParams.get('level')
+  
+    if(!language || !level){
+    return NextResponse.json(
+      { error: 'Language and level are required' },
+      { status: 400 }
+    )
+  }
 
   const prompt = `
   以下の条件に合った英単語または外国語単語の4択クイズを20問作成してください。
@@ -14,19 +22,21 @@ export async function POST(request: Request){
 
   [
   {
-    "word": "単語",
-    "meaning": "意味（日本語）",
-    "options": ["正解", "選択肢2", "選択肢3", "選択肢4"],
+    "meaning": "意味",
+    "options": ["選択肢１", "選択肢2", "選択肢3", "選択肢4"],
     "correct": "正解"
   },
   .....
 ]
 
 
-  - 注意点: 
+  - 必ず守る注意点: 
     - 単語はレベルに応じたものを選ぶこと
     - 選択肢はランダムに並べること
     - 正解の単語と意味は必ず含めること
+    - 選択肢は4つで、正解は1つだけ
+    - meaningは日本語で書くこと
+    - meaningを見て選択肢を選ぶ形式にすること
   `
     
   try {
