@@ -28,7 +28,7 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-200">
-            Email
+            メールアドレス
           </label>
           <input
             type="email"
@@ -40,7 +40,7 @@ const LoginForm = () => {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-200">
-            Password
+            パスワード
           </label>
           <input
             type="password"
@@ -51,7 +51,7 @@ const LoginForm = () => {
           />
         </div>
         <div className="mt-4">
-          <AuthButton type="login" loading={loading} />
+          <AuthButton type="ログイン" loading={loading} />
         </div>
         {error && <p className="text-red-500">{error}</p>}
       </form>

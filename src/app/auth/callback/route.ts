@@ -28,8 +28,9 @@ export async function GET(request: Request) {
   if(!existingUser) {
     const {error: dbError} = await supabase.from('user_profile').insert({
       email: data?.user?.email,
-      username: data?.user?.user_metadata?.username,
+      username: data?.user?.user_metadata?.name,
   })
+
     if(dbError) {
     console.error('Error inserting user into database:', dbError)
     return NextResponse.redirect(`${origin}/error`)

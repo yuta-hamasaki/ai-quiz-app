@@ -32,7 +32,7 @@ const ResetPassword = () => {
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-200">
-            New Password
+            新しいパスワード
           </label>
           <input
             type="password"
@@ -44,7 +44,7 @@ const ResetPassword = () => {
         </div>
 
         <div className="mt-4">
-          <AuthButton type="Reset Password" loading={loading} />
+          <AuthButton type="パスワードをリセット" loading={loading} />
         </div>
         {error && <p className="text-red-500">{error}</p>}
       </form>

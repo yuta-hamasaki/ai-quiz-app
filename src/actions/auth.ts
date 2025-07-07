@@ -108,12 +108,12 @@ export async function signOut(){
 }
 
 export async function signInWithGoogle() {
+  const origin = (await headers()).get("origin")
   const supabase = await createClient()
-
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
+      redirectTo: `${origin}/auth/callback`,
     },
   })
 

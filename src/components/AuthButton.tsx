@@ -4,7 +4,7 @@ const AuthButton = ({
   type,
   loading,
 }: {
-  type: "login" | "Sign up" | "Reset Password" | "Forgot Password";
+  type: "ログイン" | "新規登録" | "パスワードをリセット" | "パスワードを忘れた";
   loading: boolean;
 }) => {
   return (

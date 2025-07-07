@@ -6,28 +6,17 @@ import { createClient } from '@/utils/supabase/client'
 // import ClientComponent from '@/components/ClientComponent'
 
 export default function HomePage() {
-  const [user, setUser] = useState<any>(null)
   const [language, setLanguage] = useState('english')
+  const [background, setBackground] = useState('daily-conversation')
   const [level, setLevel] = useState('A1')
   const router = useRouter()
 
-    useEffect(() => {
-      const getUser = async () => {
-        const supabase = createClient()
-        const { data: { user } } = await supabase.auth.getUser()
-        setUser(user)
-      }
-      getUser()
-    }, [])
     
   const handleStart = () => {
-    const params = new URLSearchParams({ language, level })
-    if(user) {
+    const params = new URLSearchParams({ language, level, background })
       router.push(`/quiz?${params.toString()}`)
-    }else {
-      router.push(`/login`)
-    }
   }
+
 
   return (
     <div className="bg-blue-50 flex flex-col items-center justify-center p-4">
@@ -64,6 +53,56 @@ export default function HomePage() {
                 <option value="english">🇺🇸 英語</option>
                 <option value="german">🇩🇪 ドイツ語</option>
                 <option value="spanish">🇪🇸 スペイン語</option>
+                <option value="spanish">🇫🇷 フランス語</option>
+                <option value="korean">🇰🇷 韓国語</option>
+                <option value="spanish">🇨🇳 中国語</option>
+                <option value="spanish">🇳🇱 オランダ語</option>
+              </select>
+              <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* industry selection */}
+          <div className="space-y-3">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              ✏️分野、シチュエーションを選択
+            </label>
+            <div className="relative">
+              <select 
+                value={background} 
+                onChange={(e) => setBackground(e.target.value)} 
+                className="w-full p-4 pr-10 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white focus:outline-none transition-all duration-200 font-medium appearance-none cursor-pointer hover:border-gray-200"
+              >
+                <option value="daily-conversation">日常会話</option>
+                <option value="business">ビジネス</option>
+                <option value="slang">スラング</option>
+                {language === "english" && 
+                <>
+                  <option value="toefl">TOEFL</option>
+                  <option value="英検">英検</option>
+                  <option value="toeic">TOEIC</option>
+                  <option value="ielts">IELTS</option>
+                  <option value="duolingo-english-test">Duolingo English Test</option>
+                </>
+                }
+                {language === "german" && 
+                <>
+                  <option value="独検">独検</option>
+                  <option value="ゲーテ試験">ゲーテ試験</option>
+                  <option value="DSH">DSH</option>
+                </>
+                }
+                {language === "spanish" && 
+                <>
+                  <option value="西検">西検</option>
+                  <option value="siele">SIELE</option>
+                  <option value="dele">DELE</option>
+                </>
+                }
               </select>
               <div className="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
                 <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

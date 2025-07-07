@@ -5,6 +5,7 @@ export async function POST(request: Request){
 
   const language = searchParams.get('language')
   const level = searchParams.get('level')
+  const userBackground = `${searchParams.get('background')}`
   
     if(!language || !level){
     return NextResponse.json(
@@ -16,8 +17,9 @@ export async function POST(request: Request){
   const prompt = `
   以下の条件に合った英単語または外国語単語の4択クイズを20問作成してください。
 
-  - 言語: ${language}
-  - レベル: ${level}
+  - 言語: ${language},
+  - レベル: ${level} 
+  - 分野: ${userBackground}
   - 出力形式: JSON。構造は以下の通りです:
 
   [
@@ -34,7 +36,6 @@ export async function POST(request: Request){
     - 単語はレベルに応じたものを選ぶこと
     - 選択肢はランダムに並べること
     - 正解の単語と意味は必ず含めること
-    - 選択肢は4つで、正解は1つだけ
     - meaningは日本語で書くこと
     - meaningを見て選択肢を選ぶ形式にすること
   `

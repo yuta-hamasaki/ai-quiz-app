@@ -8,7 +8,7 @@ export default function LandingPage() {
     {
       name: "田中 美咲",
       role: "大学生",
-      content: "AIが私の弱点を見つけて、効率的に学習できるようになりました。TOEIC 800点突破！",
+      content: "AIが私の弱点を見つけて、効率的に学習できるようになりました。",
       rating: 5
     },
     {
@@ -29,7 +29,22 @@ export default function LandingPage() {
     {
       icon: "🤖",
       title: "AI個別最適化",
-      description: "あなたの学習パターンを分析し、最適な問題を出題"
+      description: "あなたのレベルや目的に合わせて、最適な問題を出題"
+    },
+  {
+      icon: "🌍",
+      title: "多言語対応",
+      description: "英語・ドイツ語・スペイン語など幅広い言語"
+    },
+    {
+      icon: "🎯",
+      title: "レベル別学習",
+      description: "A1からC2まで、あなたのレベルに合わせた学習"
+    },
+    {
+      icon: "📊",
+      title: "苦手を克服",
+      description: "間違えた単語を自動でリスト化し、繰り返し学習可能"
     },
     {
       icon: "⚡",
@@ -41,21 +56,6 @@ export default function LandingPage() {
       title: "いつでもどこでも",
       description: "スマホ・PC・タブレット対応でスキマ時間活用"
     },
-    {
-      icon: "📊",
-      title: "詳細分析",
-      description: "学習進捗と弱点を可視化してモチベーション維持"
-    },
-    {
-      icon: "🌍",
-      title: "多言語対応",
-      description: "英語・ドイツ語・スペイン語など幅広い言語"
-    },
-    {
-      icon: "🎯",
-      title: "レベル別学習",
-      description: "A1からC2まで、あなたのレベルに合わせた学習"
-    }
   ];
 
   return (
@@ -71,26 +71,20 @@ export default function LandingPage() {
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center space-y-8">
-            <div className="inline-flex items-center px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20">
-              <span className="text-sm font-medium">🎉 新機能リリース記念 - 今なら無料体験延長中！</span>
-            </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-              <span className="bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">
-                AI
-              </span>
-              <span className="block mt-2">語彙学習革命</span>
+            <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+              <span className="block mt-2">単語帳はもういらない</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-blue-200 max-w-3xl mx-auto leading-relaxed">
-              最先端のAI技術があなた専用の学習プランを作成。
+            <p className="text-xm md:text-2xl text-blue-200 max-w-2xl mx-auto leading-relaxed">
+              1杯のコーヒー代で、単語帳100冊分以上の価値を提供。
               <br />
-              効率的に語彙力を向上させ、語学の目標を達成しましょう。
+              最先端のAI技術により、複数の言語やテストに対応した単語学習がこれ一つで完結。
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
               <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-2xl shadow-2xl hover:shadow-3xl hover:scale-105 transform transition-all duration-300 text-lg">
-                🚀 無料で始める
+                🚀 無料体験を始める
               </button>
               <button className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-2xl hover:bg-white/20 transition-all duration-300 text-lg">
                 📹 デモを見る
@@ -98,7 +92,7 @@ export default function LandingPage() {
             </div>
             
             <div className="pt-8 text-sm text-blue-200">
-              ✨ クレジットカード不要 ・  🔒 安全・安心
+              ✨ 7ヶ国語対応・💬 さまざまなテストやスラングを学習できる
             </div>
           </div>
         </div>
@@ -120,21 +114,32 @@ export default function LandingPage() {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <div className="text-4xl font-bold text-blue-600">50,000+</div>
               <div className="text-gray-600">アクティブユーザー</div>
             </div>
             <div className="space-y-2">
               <div className="text-4xl font-bold text-purple-600">95%</div>
               <div className="text-gray-600">学習継続率</div>
+            </div> */}
+            <div className="space-y-2">
+              <div className="text-4xl font-bold text-blue-600">3倍</div>
+              <div className="text-gray-700">学習効率向上</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-indigo-600">3倍</div>
-              <div className="text-gray-600">学習効率向上</div>
+              <div className="text-4xl font-bold text-purple-600">7言語</div>
+              <div className="text-gray-700">完全対応</div>
+              <p className="text-gray-500 text-sm">英語、スペイン語、ドイツ語、フランス語、中国語、韓国語、オランダ語</p>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-green-600">12言語</div>
-              <div className="text-gray-600">対応言語数</div>
+              <div className="text-4xl font-bold text-green-600">11試験</div>
+              <div className="text-gray-700">主要語学試験対応</div>
+              <p className="text-gray-500 text-sm">TOEIC、TOEFL、IELTS、独検 など</p>
+            </div>
+            <div className="space-y-2">
+              <div className="text-4xl font-bold text-orange-600">6段階</div>
+              <div className="text-gray-700">レベル別学習</div>
+              <p className="text-gray-500 text-sm">初級（A1）から上級（C2）まで、あなたのレベルに合わせた学習</p>
             </div>
           </div>
         </div>
@@ -186,20 +191,20 @@ export default function LandingPage() {
             {[
               {
                 step: "01",
-                title: "レベル診断",
-                description: "簡単なテストであなたの現在のレベルを診断",
+                title: "クイズをカスタマイズ",
+                description: "あなたのレベルや目的を設定",
                 icon: "🎯"
               },
               {
                 step: "02",
                 title: "AI学習開始",
-                description: "AIがあなた専用の学習プランを自動生成",
+                description: "AIがあなた専用のクイズを自動生成",
                 icon: "🤖"
               },
               {
                 step: "03",
                 title: "継続的改善",
-                description: "学習データを分析し、常に最適化を実行",
+                description: "過去に間違った単語を自動でリスト化して何度も学習可能",
                 icon: "📈"
               }
             ].map((item, index) => (
@@ -219,6 +224,151 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+            {/* Pricing Section */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              シンプルな料金体系
+            </h2>
+            <p className="text-xl text-gray-600">
+              コーヒー1杯分の価格で、無制限の学習体験を
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {/* standard Plan */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="text-center space-y-6">
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold text-gray-900">スタンダードプラン</h3>
+                  <div className="text-4xl font-bold text-gray-900">¥200</div>
+                  <p className="text-gray-600">月額</p>
+                </div>
+                <ul className="space-y-3 text-left">
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>AI個別最適化</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>11試験対応</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>苦手単語自動管理</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-gray-300">✗</span>
+                    <span className="text-gray-500">
+                      <span>英語のみ対応</span>
+                  </span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-gray-300">✗</span>
+                    <span className="text-gray-500">
+                      <span>問題数1日20問まで</span>
+                    </span>
+                  </li>
+                </ul>
+                <button className="w-full py-3 bg-gray-100 text-gray-800 font-semibold rounded-2xl hover:bg-gray-200 transition-all duration-300">
+                  スタンダードプランを選択
+                </button>
+              </div>
+            </div>
+
+            {/* Yealy Pro Plan */}
+            <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <div className="bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-bold">
+                  人気No.1
+                </div>
+              </div>
+              <div className="text-center space-y-6 text-white">
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold">年間PROプラン</h3>
+                  <div className="text-4xl font-bold">¥390</div>
+                  <p className="text-blue-100">月額</p>
+                </div>
+                <ul className="space-y-3 text-left">
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>AI個別最適化</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>11試験対応</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>苦手単語自動管理</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>7言語完全対応</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>問題数無制限</span>
+                  </li>
+                </ul>
+                <button className="w-full py-3 bg-white text-blue-600 font-bold rounded-2xl hover:bg-gray-100 transition-all duration-300">
+                  年間PROプランを選択
+                </button>
+              </div>
+            </div>
+
+            {/* Monthly Pro Plan */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="text-center space-y-6">
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-bold text-gray-900">月間PROプラン</h3>
+                  <div className="text-4xl font-bold text-gray-900">¥490</div>
+                  <p className="text-gray-600">月額</p>
+                </div>
+                <ul className="space-y-3 text-left">
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>AI個別最適化</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>11試験対応</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>苦手単語自動管理</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>7言語完全対応</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <span className="text-green-400">✓</span>
+                    <span>問題数無制限</span>
+                  </li>
+                </ul>
+                <button className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-2xl hover:shadow-lg transition-all duration-300">
+                  月額PROプランを選択
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center mt-12">
+            <p className="text-gray-600 mb-6">
+              すべてのプランで3日間無料体験が可能です
+            </p>
+            <div className="flex justify-center space-x-8 text-sm text-gray-500">
+              <div className="flex items-center space-x-2">
+                <span className="text-green-500">✓</span>
+                <span>いつでもキャンセル可能</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* Testimonials */}
       <section className="py-24 bg-white">
@@ -277,13 +427,13 @@ export default function LandingPage() {
             <span className="block">革命的に変えよう</span>
           </h2>
           <p className="text-xl mb-8 text-blue-100">
-            14日間の無料体験で、AIの力を実感してください
+            3日間の無料体験で、AIの力を実感してください
           </p>
           <button className="px-12 py-4 bg-white text-blue-600 font-bold text-xl rounded-2xl shadow-2xl hover:shadow-3xl hover:scale-105 transform transition-all duration-300">
             🚀 無料体験を始める
           </button>
           <p className="text-sm text-blue-200 mt-4">
-            無料体験後も月額料金なし・追加課金なし
+            無料体験後キャンセル可能
           </p>
         </div>
       </section>

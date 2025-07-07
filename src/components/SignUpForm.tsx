@@ -29,7 +29,7 @@ const SignUpForm = () => {
       <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-200">
-            Username
+            ユーザー名
           </label>
           <input
             type="text"
@@ -37,11 +37,12 @@ const SignUpForm = () => {
             id="username"
             name="username"
             className="mt-1 w-full px-4 p-2  h-10 rounded-md border border-gray-200 bg-white text-sm text-gray-700"
+            required
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-200">
-            Email
+            メールアドレス
           </label>
           <input
             type="email"
@@ -49,11 +50,12 @@ const SignUpForm = () => {
             id="Email"
             name="email"
             className="mt-1 w-full px-4 p-2  h-10 rounded-md border border-gray-200 bg-white text-sm text-gray-700"
+            required
           />
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-200">
-            Password
+            パスワード
           </label>
           <input
             type="password"
@@ -61,10 +63,11 @@ const SignUpForm = () => {
             name="password"
             id="password"
             className="mt-1 w-full px-4 p-2  h-10 rounded-md border border-gray-200 bg-white text-sm text-gray-700"
+            required
           />
         </div>
         <div className="mt-4">
-          <AuthButton type="Sign up" loading={loading} />
+          <AuthButton type="新規登録" loading={loading} />
         </div>
         {error && <p className="text-red-500">{error}</p>}
       </form>

@@ -28,15 +28,7 @@ export default function QuizPage() {
   // 何問目かを取得
   const [currentIndex, setCurrentIndex] = useState<number>(0)
 
-  // ユーザー認証の取得
-  useEffect(() => {
-    const getUser = async () => {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-      setUser(user)
-    }
-    getUser()
-  }, [])
+
 
   const handleNext = () => {
     setTimeout(() => {

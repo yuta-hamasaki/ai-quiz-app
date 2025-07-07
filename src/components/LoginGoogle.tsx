@@ -19,7 +19,7 @@ const LoginGoogle = () => {
     >
       <FaGoogle className="text-white" />
       <p className="text-white">
-        {isPending ? "Redirecting..." : "Login with Google"}
+        {isPending ? "ログイン中..." : "Googleでログイン"}
       </p>
     </div>
   );

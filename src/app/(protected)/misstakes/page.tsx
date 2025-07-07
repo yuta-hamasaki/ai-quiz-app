@@ -277,10 +277,10 @@ export default function MistakesPage() {
             </button>
           </div>
         ) : (
-          <div className="grid gap-4">
+          <div className="grid gap-2">
             {mistakes.map((mistake) => (
-              <div key={mistake.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-                <div className="flex justify-between items-start mb-4">
+              <div key={mistake.id} className="bg-white rounded-lg shadow-md p-5 hover:shadow-lg transition-shadow">
+                <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
                       <h3 className="text-xl font-bold text-gray-800">{mistake.correct}</h3>
@@ -293,13 +293,7 @@ export default function MistakesPage() {
                         </span>
                       </div>
                     </div>
-                    <p className="text-gray-600 mb-3">{mistake.meaning}</p>
-                    
-                    <div className="grid md:grid-cols-2 gap-4 mb-3">
-                      <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
-                        <p className="text-green-800">{mistake.correct}</p>
-                      </div>
-                    </div>
+                    <p className="text-gray-600">{mistake.meaning}</p>
                   </div>
                   
                   <button
