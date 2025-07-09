@@ -1,18 +1,18 @@
 # 🧠 AI Word Quiz App
 
-AIを活用して英語やドイツ語の語彙力を高めるクイズアプリです。  
+AIを活用して外国語の単語を覚えるためのクイズアプリです。  
 クイズの生成にはOpenAI APIを使用し、ユーザー認証・単語の保存にはSupabase、決済にはStripeを活用したフルスタックアプリです。
 
 ---
 
 ## 🚀 Features
 
-- ✨ **AIによるクイズ生成**（OpenAI API GPT-4対応）
-- 📚 **英語 / ドイツ語対応、レベル選択可能（初級〜上級）**
+- ✨ **AIによるクイズ生成**（OpenAI API）
+- 📚 **７ヶ国語対応、レベル選択可能（初級〜上級）**
 - ✅ **4択形式のクイズ / 自動的に1問ずつ表示**
 - 🔐 **Supabaseによるユーザー認証**
 - 📌 **間違えた単語のみSupabaseに保存**
-- 💳 **Stripe対応のプロフィール機能**
+- 💳 **Stripe決済**
 - 📱 **レスポンシブデザイン（Tailwind CSS）**
 
 ---
@@ -21,12 +21,12 @@ AIを活用して英語やドイツ語の語彙力を高めるクイズアプリ
 
 | 技術         | 説明 |
 |--------------|------|
-| **Next.js 15 App Router** | 最新のルーティング構造 |
-| **React / TypeScript** | 型安全なUI構築 |
-| **Tailwind CSS** | 高速スタイリング |
-| **Supabase** | Auth + DB + Storage |
-| **OpenAI API** | GPT-4でクイズ自動生成 |
-| **Stripe** | 決済・課金対応用プロフィール構築 |
+| **Next.js 15 App Router** | フレームワーク |
+| **TypeScript** | 言語 |
+| **Tailwind CSS** | スタイリング |
+| **Supabase** | Auth & DB |
+| **OpenAI API** | クイズ自動生成 |
+| **Stripe** | 決済 |
 
 ---
 
