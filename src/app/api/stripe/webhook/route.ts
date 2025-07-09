@@ -1,11 +1,20 @@
 // API Route - app/api/webhooks/stripe/route.ts
 import initStripe from "stripe";
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from '@/utils/supabase/server';
+import { createClient } from '@supabase/supabase-js';
 import { Stripe } from "stripe";
 
 export async function POST(req: NextRequest) {
-  const supabase = await createClient()
+  const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  }
+);
 
   try {
     const stripe = new initStripe(process.env.STRIPE_SECRET_KEY as string);

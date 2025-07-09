@@ -4,6 +4,7 @@ import initStripe, {Stripe} from "stripe"
 import { redirect } from 'next/navigation';
 import {subscribeAction} from '@/actions/stripe';
 import PurchaseBtn from './PurchaseBtn';
+import PortalBtn from './PortalBtn';
 
 interface Plan {
   id: string;
@@ -13,37 +14,33 @@ interface Plan {
   status: boolean;
 }
 
+const standardPlan = process.env.STANDARD_PLAN_ID || 'price_1RihruKhyfhfuII6lJmTUFfg';
+const yearlyProPlan = process.env.YEARLY_PRO_PLAN_ID || 'price_1RiiD8KhyfhfuII6jSS2BxnH';
+const monthlyProPlan = process.env.MONTHLY_PRO_PLAN_ID || 'price_1RiiBwKhyfhfuII6cUYLAxtR'
+
   const PLAN_IDS = {
-    STANDARD: 'price_1RihruKhyfhfuII6lJmTUFfg', 
-    YEARLY_PRO: 'price_1RiiD8KhyfhfuII6jSS2BxnH',    
-    MONTHLY_PRO: 'price_1RiiBwKhyfhfuII6cUYLAxtR'   
+    STANDARD: standardPlan, 
+    YEARLY_PRO: yearlyProPlan,    
+    MONTHLY_PRO: monthlyProPlan   
   };
 
-
-
-
-// const getAllPlans = async():Promise<Plan[]>=>{
-//   const stripe = new initStripe(process.env.STRIPE_SECRET_KEY as string);
-//   const {data: plansList} = await stripe.plans.list()
-//   const plans = await Promise.all(plansList.map(async(plan)=>{
-//     const product = await stripe.products.retrieve(plan.product as string)
-//     return {
-//       id: plan.id,
-//       name: product.name,
-//       price:plan.amount_decimal,
-//       currency: plan.currency,
-//       status: product.active,
-//     }
-//   }))
-//   return plans
-// }
+const getIsSubscribed = async (userId: string) => {
+  const supabase = createClient();
+  const { data: isSubscribed } = await (await supabase)
+    .from("user_profile")
+    .select("is_subscribed")
+    .eq("id", userId)
+    .single();
+  return isSubscribed?.is_subscribed;
+}
 
 
 export default async function PriceCards({ user }: { user: any }) {
-    // const supabase = createClient();
-    // const profile = await (await supabase).from('user_profile').select('*').eq('id', user.user?.id).single();
-  // const plans = await getAllPlans();
-  // const activePlans = plans.filter(plan => plan.status);
+  const isSubscribed = user ? await getIsSubscribed(user.id) : null;
+
+    const showRegister = !user;
+    const showPayButton = user && !isSubscribed?.is_subscribed;
+    const showPortalButton = user && isSubscribed?.is_subscribed;
 
 
 
@@ -111,21 +108,23 @@ export default async function PriceCards({ user }: { user: any }) {
                 </ul>
 
                 <div className="mt-6">
-                  {user ? (<PurchaseBtn
+                  {showPayButton && <PurchaseBtn
                     className={"w-full py-3 bg-gray-100 text-gray-800 font-semibold rounded-2xl hover:bg-gray-200 transition-all duration-300"}
                     user={user}
                     priceId={PLAN_IDS.STANDARD}
                     btnText={"スタンダードプランを選択"}
-                  />) : (
-                    <Link
+                  />
+                  }
+                  {showPortalButton && <PortalBtn/>}
+                  {showRegister && <Link
                     href="/register">
                     <button
                     className="w-full py-3 bg-gray-100 text-gray-800 font-semibold rounded-2xl hover:bg-gray-200 transition-all duration-300"
                     >
                       スタンダードプランを選択
                     </button>
-                    </Link>
-                  )}
+                    </Link>}
+                  
                 </div>
               </div>
             </div>
@@ -166,22 +165,21 @@ export default async function PriceCards({ user }: { user: any }) {
                   </li>
                 </ul>
                 <div className="mt-6">
-                  {user ? (<PurchaseBtn 
+                  {showPayButton && <PurchaseBtn 
                     className={"w-full py-3 bg-white text-blue-600 font-bold rounded-2xl hover:bg-gray-100 transition-all duration-300"}
                     user={user}
                     priceId={PLAN_IDS.YEARLY_PRO}
                     btnText={"年間PROプランを選択"}
-                  />)
-                  :
-                  (
-                      <Link href="/register">
+                  />}
+                  {showPortalButton && <PortalBtn/>}
+                  {showRegister && <Link href="/register">
                         <button
                           className="w-full py-3 bg-white text-blue-600 font-bold rounded-2xl hover:bg-gray-100 transition-all duration-300"
                         >
                           年間PROプランを選択
                         </button>
                       </Link>
-                  )}
+                  }
                 </div>
               </div>
             </div>
@@ -217,12 +215,14 @@ export default async function PriceCards({ user }: { user: any }) {
                   </li>
                 </ul>
                 <div className="mt-6">
-                {user ? (<PurchaseBtn 
+                {showPayButton && <PurchaseBtn 
                 className={"w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-2xl hover:shadow-lg transition-all duration-300"}
                   user={user}
                   priceId={PLAN_IDS.MONTHLY_PRO}
                   btnText={"月額PROプランを選択"}
-                />):(
+                />}
+                {showPortalButton && <PortalBtn/>}
+                {showRegister &&
                   <Link href="/register">
                   <button
                     className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-2xl hover:shadow-lg transition-all duration-300"
@@ -230,7 +230,7 @@ export default async function PriceCards({ user }: { user: any }) {
                     月額PROプランを選択
                   </button>
                   </Link>
-                )}
+}
                 </div>
               </div>
             </div>
