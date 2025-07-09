@@ -1,63 +1,13 @@
-"use client"
-import React, { useState } from 'react';
+import TestimonialCard from '@/components/TestimonialCard';
 import Link from 'next/link';
+import { features, testimonials } from '@/utils/landing/constants';
+import { createClient } from '@/utils/supabase/server';
+import PriceCards from '@/components/PriceCards';
 
-export default function LandingPage() {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  
-  const testimonials = [
-    {
-      name: "田中 美咲",
-      role: "大学生",
-      content: "AIが私の弱点を見つけて、効率的に学習できるようになりました。",
-      rating: 5
-    },
-    {
-      name: "佐藤 健一",
-      role: "会社員",
-      content: "忙しい中でも短時間で効果的に語彙力を伸ばせました。ドイツ語検定B2合格できました！",
-      rating: 5
-    },
-    {
-      name: "山田 花子",
-      role: "主婦",
-      content: "子育ての合間にスマホで学習。3ヶ月で英会話に自信が持てるようになりました。",
-      rating: 5
-    }
-  ];
-
-  const features = [
-    {
-      icon: "🤖",
-      title: "AI個別最適化",
-      description: "あなたのレベルや目的に合わせて、最適な問題を出題"
-    },
-  {
-      icon: "🌍",
-      title: "多言語対応",
-      description: "英語・ドイツ語・スペイン語など幅広い言語"
-    },
-    {
-      icon: "🎯",
-      title: "レベル別学習",
-      description: "A1からC2まで、あなたのレベルに合わせた学習"
-    },
-    {
-      icon: "📊",
-      title: "苦手を克服",
-      description: "間違えた単語を自動でリスト化し、繰り返し学習可能"
-    },
-    {
-      icon: "⚡",
-      title: "高速学習",
-      description: "従来の3倍速で語彙力向上を実現"
-    },
-    {
-      icon: "📱",
-      title: "いつでもどこでも",
-      description: "スマホ・PC・タブレット対応でスキマ時間活用"
-    },
-  ];
+export default async function LandingPage() {
+  const supabase = createClient();
+  const { data: session } = await (await supabase).auth.getSession()
+  const user= session.session?.user;
 
   return (
     <div className="min-h-screen bg-white">
@@ -227,199 +177,17 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-            {/* Pricing Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              シンプルな料金体系
-            </h2>
-            <p className="text-xl text-gray-600">
-              コーヒー1杯分の価格で、無制限の学習体験を
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* standard Plan */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="text-center space-y-6">
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-bold text-gray-900">スタンダードプラン</h3>
-                  <div className="text-4xl font-bold text-gray-900">¥200</div>
-                  <p className="text-gray-600">月額</p>
-                </div>
-                <ul className="space-y-3 text-left">
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>AI個別最適化</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>11試験対応</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>苦手単語自動管理</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-gray-300">✗</span>
-                    <span className="text-gray-500">
-                      <span>英語のみ対応</span>
-                  </span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-gray-300">✗</span>
-                    <span className="text-gray-500">
-                      <span>問題数1日20問まで</span>
-                    </span>
-                  </li>
-                </ul>
-                <button className="w-full py-3 bg-gray-100 text-gray-800 font-semibold rounded-2xl hover:bg-gray-200 transition-all duration-300">
-                  スタンダードプランを選択
-                </button>
-              </div>
-            </div>
-
-            {/* Yealy Pro Plan */}
-            <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 relative">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <div className="bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-bold">
-                  人気No.1
-                </div>
-              </div>
-              <div className="text-center space-y-6 text-white">
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-bold">年間PROプラン</h3>
-                  <div className="text-4xl font-bold">¥390</div>
-                  <p className="text-blue-100">月額</p>
-                </div>
-                <ul className="space-y-3 text-left">
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>AI個別最適化</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>11試験対応</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>苦手単語自動管理</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>7言語完全対応</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>問題数無制限</span>
-                  </li>
-                </ul>
-                <button className="w-full py-3 bg-white text-blue-600 font-bold rounded-2xl hover:bg-gray-100 transition-all duration-300">
-                  年間PROプランを選択
-                </button>
-              </div>
-            </div>
-
-            {/* Monthly Pro Plan */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="text-center space-y-6">
-                <div className="space-y-2">
-                  <h3 className="text-2xl font-bold text-gray-900">月間PROプラン</h3>
-                  <div className="text-4xl font-bold text-gray-900">¥490</div>
-                  <p className="text-gray-600">月額</p>
-                </div>
-                <ul className="space-y-3 text-left">
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>AI個別最適化</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>11試験対応</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>苦手単語自動管理</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>7言語完全対応</span>
-                  </li>
-                  <li className="flex items-center space-x-3">
-                    <span className="text-green-400">✓</span>
-                    <span>問題数無制限</span>
-                  </li>
-                </ul>
-                <button className="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-2xl hover:shadow-lg transition-all duration-300">
-                  月額PROプランを選択
-                </button>
-              </div>
-            </div>
-          </div>
-          
-          <div className="text-center mt-12">
-            <p className="text-gray-600 mb-6">
-              すべてのプランで3日間無料体験が可能です
-            </p>
-            <div className="flex justify-center space-x-8 text-sm text-gray-500">
-              <div className="flex items-center space-x-2">
-                <span className="text-green-500">✓</span>
-                <span>いつでもキャンセル可能</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Pricing Section */}
+      <PriceCards
+        user={user}
+      />
 
 
       {/* Testimonials */}
       <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              ユーザーの声
-            </h2>
-            <p className="text-xl text-gray-600">
-              実際に成果を上げた方々からの評価
-            </p>
-          </div>
-          
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl p-8 md:p-12">
-              <div className="text-center space-y-6">
-                <div className="flex justify-center space-x-1">
-                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                    <span key={i} className="text-yellow-400 text-2xl">⭐</span>
-                  ))}
-                </div>
-                <blockquote className="text-xl md:text-2xl text-gray-800 leading-relaxed">
-                  "{testimonials[currentTestimonial].content}"
-                </blockquote>
-                <div className="space-y-2">
-                  <div className="font-bold text-gray-900 text-lg">
-                    {testimonials[currentTestimonial].name}
-                  </div>
-                  <div className="text-gray-600">
-                    {testimonials[currentTestimonial].role}
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex justify-center space-x-2 mt-8">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentTestimonial ? 'bg-blue-500' : 'bg-gray-300'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+        <TestimonialCard
+          testimonials={testimonials}
+        />
       </section>
 
       {/* CTA Section */}
