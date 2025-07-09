@@ -1,34 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🧠 AI Word Quiz App
 
-## Getting Started
+AIを活用して英語やドイツ語の語彙力を高めるクイズアプリです。  
+クイズの生成にはOpenAI APIを使用し、ユーザー認証・単語の保存にはSupabase、決済にはStripeを活用したフルスタックアプリです。
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- ✨ **AIによるクイズ生成**（OpenAI API GPT-4対応）
+- 📚 **英語 / ドイツ語対応、レベル選択可能（初級〜上級）**
+- ✅ **4択形式のクイズ / 自動的に1問ずつ表示**
+- 🔐 **Supabaseによるユーザー認証**
+- 📌 **間違えた単語のみSupabaseに保存**
+- 💳 **Stripe対応のプロフィール機能**
+- 📱 **レスポンシブデザイン（Tailwind CSS）**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 🛠️ Built With
 
-## Learn More
+| 技術         | 説明 |
+|--------------|------|
+| **Next.js 15 App Router** | 最新のルーティング構造 |
+| **React / TypeScript** | 型安全なUI構築 |
+| **Tailwind CSS** | 高速スタイリング |
+| **Supabase** | Auth + DB + Storage |
+| **OpenAI API** | GPT-4でクイズ自動生成 |
+| **Stripe** | 決済・課金対応用プロフィール構築 |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ Getting Started
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### 1. 環境変数を設定
 
-## Deploy on Vercel
+`.env.local` を作成して以下を記述：
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+OPENAI_API_KEY=your_openai_api_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
