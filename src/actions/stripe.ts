@@ -51,7 +51,7 @@ export const subscribeAction = async ({ userId, priceId }: Props) => {
       username: user?.username,
     },
     mode: "subscription",
-    success_url: `${process.env.NEXT_PUBLIC_URL}/success`,
+    success_url: `${process.env.NEXT_PUBLIC_URL}/`,
     cancel_url: `${process.env.NEXT_PUBLIC_URL}/select-plan`,
     allow_promotion_codes: true,
   }
