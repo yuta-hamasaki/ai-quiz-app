@@ -80,7 +80,7 @@ export const standardCalculator = async (userId: string) => {
     if (!canTake) {
       return { 
         status: 'error', 
-        message: `1日1回の利用制限があります。あと${hoursLeft.toFixed(1)}時間お待ちください。` 
+        message: `スタンダードプランは1日1回の利用制限があります。あと${hoursLeft.toFixed(1)}時間お待ちください。` 
       }
     }
 
