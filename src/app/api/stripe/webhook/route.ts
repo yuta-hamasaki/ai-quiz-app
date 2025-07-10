@@ -91,6 +91,7 @@ async function handleSubscriptionCreated(supabase: any, event: Stripe.Event) {
     .update({
       is_subscribed: true,
       plan: subscription.id,
+      price: subscription.items.data[0].price.id,
       interval: subscription.items.data[0].price.recurring?.interval,
     })
     .eq("stripe_customer_id", subscription.customer);
@@ -112,6 +113,7 @@ async function handleSubscriptionUpdated(supabase: any, event: Stripe.Event) {
       .update({
         is_subscribed: false,
         plan: null,
+        price: null,
         interval: null,
       })
       .eq("stripe_customer_id", subscription.customer);
@@ -132,6 +134,7 @@ async function handleSubscriptionUpdated(supabase: any, event: Stripe.Event) {
       .update({
         is_subscribed: true,
         plan: subscription.id,
+        price: subscription.items.data[0].price.id,
         interval: subscription.items.data[0].price.recurring?.interval,
       })
       .eq("stripe_customer_id", subscription.customer);
@@ -153,6 +156,7 @@ async function handleSubscriptionDeleted(supabase: any, event: Stripe.Event) {
       is_subscribed: false,
       plan: null,
       interval: null,
+      price: null,
     })
     .eq("stripe_customer_id", subscription.customer);
 

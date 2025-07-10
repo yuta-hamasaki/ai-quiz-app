@@ -3,20 +3,57 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
-// import ClientComponent from '@/components/ClientComponent'
+import { standardCulculator } from '@/actions/quiz-limit' 
+import { User } from '@supabase/supabase-js'
 
 export default function HomePage() {
   const [language, setLanguage] = useState('english')
   const [background, setBackground] = useState('daily-conversation')
   const [level, setLevel] = useState('A1')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [user, setUser] = useState<any>(null)
   const router = useRouter()
 
-    
-  const handleStart = () => {
-    const params = new URLSearchParams({ language, level, background })
-      router.push(`/quiz?${params.toString()}`)
-  }
+  // ユーザー情報を取得
+  useEffect(() => {
+    const getUser = async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      setUser(user)
+    }
+    getUser()
+  }, [])
 
+  const handleStart = async () => {
+    if (!user) {
+      router.push('/login')
+      return
+    }
+
+    setIsLoading(true)
+    setError('')
+
+    try {
+      // 利用制限チェック
+      const result = await standardCulculator(user.id)
+      
+      if (result.status === 'error') {
+        setError(result.message)
+        setIsLoading(false)
+        return
+      }
+
+      // 制限チェック通過 → クイズページへ
+      const params = new URLSearchParams({ language, level, background })
+      router.push(`/quiz?${params.toString()}`)
+    } catch (err) {
+      console.error('Error starting quiz:', err)
+      setError('クイズを開始できませんでした。しばらく時間をおいてから再度お試しください。')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="bg-blue-50 flex flex-col items-center justify-center p-4 ">
@@ -31,6 +68,16 @@ export default function HomePage() {
 
         {/* Form card */}
         <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-white/20 p-8 space-y-6">
+          {/* Error message */}
+          {error && (
+            <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+              <div className="flex items-center space-x-2">
+                <span className="text-red-500">⚠️</span>
+                <p className="text-sm text-red-700">{error}</p>
+              </div>
+            </div>
+          )}
+
           {/* Language selection */}
           <div className="space-y-3">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -41,6 +88,7 @@ export default function HomePage() {
                 value={language} 
                 onChange={(e) => setLanguage(e.target.value)} 
                 className="w-full p-4 pr-10 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white focus:outline-none transition-all duration-200 font-medium appearance-none cursor-pointer hover:border-gray-200"
+                disabled={isLoading}
               >
                 <option value="english">🇺🇸 英語</option>
                 <option value="german">🇩🇪 ドイツ語</option>
@@ -68,6 +116,7 @@ export default function HomePage() {
                 value={background} 
                 onChange={(e) => setBackground(e.target.value)} 
                 className="w-full p-4 pr-10 bg-gray-50 border-2 border-gray-100 rounded-2xl focus:border-blue-500 focus:bg-white focus:outline-none transition-all duration-200 font-medium appearance-none cursor-pointer hover:border-gray-200"
+                disabled={isLoading}
               >
                 <option value="daily-conversation">日常会話</option>
                 <option value="business">ビジネス</option>
@@ -121,11 +170,12 @@ export default function HomePage() {
                 <button
                   key={item.value}
                   onClick={() => setLevel(item.value)}
+                  disabled={isLoading}
                   className={`p-3 rounded-xl border-2 transition-all duration-200 text-center ${
                     level === item.value
                       ? 'border-blue-500 bg-blue-50 text-blue-700'
                       : 'border-gray-100 bg-gray-50 text-gray-600 hover:border-gray-200 hover:bg-gray-100'
-                  }`}
+                  } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   <div className="font-bold text-sm">{item.label}</div>
                   <div className="text-xs opacity-75">{item.desc}</div>
@@ -137,9 +187,19 @@ export default function HomePage() {
           {/* Start button */}
           <button 
             onClick={handleStart} 
-            className="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center space-x-2"
+            disabled={isLoading}
+            className={`w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center space-x-2 ${
+              isLoading ? 'opacity-50 cursor-not-allowed transform-none' : ''
+            }`}
           >
-            <span>🚀 クイズを始める</span>
+            {isLoading ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                <span>読み込み中...</span>
+              </>
+            ) : (
+              <span>🚀 クイズを始める</span>
+            )}
           </button>
 
           {/* Feature highlights */}
@@ -161,8 +221,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-
-      {/* <ClientComponent/> */}
     </div>
   )
 }
