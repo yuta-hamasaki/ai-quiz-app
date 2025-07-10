@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
-import { standardCulculator } from '@/actions/quiz-limit' 
+import { standardCalculator } from '@/actions/quiz-limit' 
 
 export default function HomePage() {
   const [language, setLanguage] = useState('english')
@@ -35,7 +35,7 @@ export default function HomePage() {
 
     try {
       // 利用制限チェック
-      const result = await standardCulculator(user.id)
+      const result = await standardCalculator(user.id)
       
       if (result.status === 'error') {
         setError(result.message)

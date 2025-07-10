@@ -1,6 +1,14 @@
 "use server"
 import { createClient } from '@/utils/supabase/server'
 
+// 環境変数の検証を関数として分離
+const getStandardPlanId = (): string => {
+  const standardPlanId = process.env.STANDARD_PLAN_ID
+  if (!standardPlanId) {
+    throw new Error('STANDARD_PLAN_ID environment variable is not set')
+  }
+  return standardPlanId
+}
 
 const updateLastQuizAt = async (userId: string) => {
   const supabase = createClient()
@@ -14,8 +22,7 @@ const updateLastQuizAt = async (userId: string) => {
   }
 }
 
-const canUserTakeQuiz = async (userId: string) => {
-  const standardPlanId = process.env.STANDARD_PLAN_ID as string
+const canUserTakeQuiz = async (userId: string, standardPlanId: string) => {
   const supabase = createClient()
   const { data: userProfile, error } = await (await supabase)
     .from('user_profile')
@@ -28,7 +35,7 @@ const canUserTakeQuiz = async (userId: string) => {
   }
 
   // プランがstandardプランでない場合は制限なし
-  if (userProfile.price!== standardPlanId) {
+  if (userProfile.price !== standardPlanId) {
     return { canTake: true, hoursLeft: 0 }
   }
 
@@ -52,18 +59,16 @@ const canUserTakeQuiz = async (userId: string) => {
 }
 
 // ユーザーがクイズを受けることができるかどうかを確認する関数
-export const standardCulculator = async (userId: string) => {
-  const standardPlanId = process.env.STANDARD_PLAN_ID as string
+export const standardCalculator = async (userId: string) => {
   if (!userId) {
     return { status: 'error', message: 'ユーザーIDが必要です。' }
   }
 
-  if (!standardPlanId) {
-    return { status: 'error', message: 'プラン設定が見つかりません。' }
-  }
-
   try {
-    const { canTake, hoursLeft } = await canUserTakeQuiz(userId)
+    // 環境変数の取得と検証
+    const standardPlanId = getStandardPlanId()
+    
+    const { canTake, hoursLeft } = await canUserTakeQuiz(userId, standardPlanId)
     
     if (!canTake) {
       return { 
@@ -77,10 +82,19 @@ export const standardCulculator = async (userId: string) => {
 
     return { status: 'success', message: 'クイズを開始できます。' }
   } catch (error) {
-    console.error('Error in standardCulculator:', error)
+    console.error('Error in standardCalculator:', error)
+    
+    // 環境変数のエラーかどうかで分岐
+    if (error instanceof Error && error.message.includes('STANDARD_PLAN_ID')) {
+      return { 
+        status: 'error', 
+        message: 'システム設定エラーが発生しました。管理者にお問い合わせください。' 
+      }
+    }
+    
     return { 
       status: 'error', 
-      message: 'クイズの利用制限の確認中にエラーが発生しました。' 
+      message: 'エラーが発生しました。' 
     }
   }
 }
