@@ -94,7 +94,7 @@ export const standardCalculator = async (userId: string) => {
     
     return { 
       status: 'error', 
-      message: 'エラーが発生しました。' 
+      message: `エラーが発生しました。 ${error}`
     }
   }
 }
