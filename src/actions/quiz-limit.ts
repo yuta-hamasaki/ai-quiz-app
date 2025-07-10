@@ -1,6 +1,7 @@
 "use server"
 import { createClient } from '@/utils/supabase/server'
 
+
 const updateLastQuizAt = async (userId: string) => {
   const supabase = createClient()
   const { error } = await (await supabase)
@@ -13,7 +14,8 @@ const updateLastQuizAt = async (userId: string) => {
   }
 }
 
-const canUserTakeQuiz = async (userId: string, standardPlanId: string) => {
+const canUserTakeQuiz = async (userId: string) => {
+  const standardPlanId = process.env.STANDARD_PLAN_ID as string
   const supabase = createClient()
   const { data: userProfile, error } = await (await supabase)
     .from('user_profile')
@@ -49,9 +51,9 @@ const canUserTakeQuiz = async (userId: string, standardPlanId: string) => {
   }
 }
 
+// ユーザーがクイズを受けることができるかどうかを確認する関数
 export const standardCulculator = async (userId: string) => {
   const standardPlanId = process.env.STANDARD_PLAN_ID as string
-
   if (!userId) {
     return { status: 'error', message: 'ユーザーIDが必要です。' }
   }
@@ -61,7 +63,7 @@ export const standardCulculator = async (userId: string) => {
   }
 
   try {
-    const { canTake, hoursLeft } = await canUserTakeQuiz(userId, standardPlanId)
+    const { canTake, hoursLeft } = await canUserTakeQuiz(userId)
     
     if (!canTake) {
       return { 

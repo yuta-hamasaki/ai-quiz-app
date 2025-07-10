@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import { standardCulculator } from '@/actions/quiz-limit' 
-import { User } from '@supabase/supabase-js'
 
 export default function HomePage() {
   const [language, setLanguage] = useState('english')
