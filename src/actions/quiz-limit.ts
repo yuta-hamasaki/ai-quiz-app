@@ -5,7 +5,7 @@ const updateLastQuizAt = async (userId: string) => {
   try {
     const supabase = createClient()
     
-    // timestamptz型の場合はISO文字列をそのまま使用
+    // timestamp型なのでISO文字列をそのまま使用
     const { error } = await (await supabase)
       .from('user_profile')
       .update({ last_quiz_at: new Date().toISOString() })
@@ -17,30 +17,6 @@ const updateLastQuizAt = async (userId: string) => {
     }
   } catch (error) {
     console.error('updateLastQuizAt function error:', error)
-    throw error
-  }
-}
-
-// もしtime型のままにする場合の代替関数
-const updateLastQuizAtTimeOnly = async (userId: string) => {
-  try {
-    const supabase = createClient()
-    
-    // time型の場合は時刻のみを保存
-    const now = new Date()
-    const timeOnly = now.toTimeString().split(' ')[0] // "HH:MM:SS"形式
-    
-    const { error } = await (await supabase)
-      .from('user_profile')
-      .update({ last_quiz_at: timeOnly })
-      .eq('id', userId)
-    
-    if (error) {
-      console.error('Update last_quiz_at error:', error)
-      throw new Error(`Failed to update last_quiz_at: ${error.message}`)
-    }
-  } catch (error) {
-    console.error('updateLastQuizAtTimeOnly function error:', error)
     throw error
   }
 }
@@ -75,22 +51,8 @@ const canUserTakeQuiz = async (userId: string) => {
       return { canTake: true, hoursLeft: 0 }
     }
 
-    // last_quiz_atがtime型かtimestamp型かによって処理を分岐
-    let lastQuizTime: Date
-    
-    if (typeof userProfile.last_quiz_at === 'string') {
-      // timestamp型の場合
-      if (userProfile.last_quiz_at.includes('T') || userProfile.last_quiz_at.includes('-')) {
-        lastQuizTime = new Date(userProfile.last_quiz_at)
-      } else {
-        // time型の場合 - 今日の日付と組み合わせる
-        const today = new Date().toISOString().split('T')[0]
-        lastQuizTime = new Date(`${today}T${userProfile.last_quiz_at}`)
-      }
-    } else {
-      lastQuizTime = new Date(userProfile.last_quiz_at)
-    }
-
+    // timestamp型から日時を取得
+    const lastQuizTime = new Date(userProfile.last_quiz_at)
     const now = new Date()
     const timeDiff = now.getTime() - lastQuizTime.getTime()
     const hoursElapsed = timeDiff / (1000 * 60 * 60)
@@ -130,14 +92,6 @@ export const standardCalculator = async (userId: string) => {
     console.error('Error in standardCalculator:', error)
     
     if (error instanceof Error) {
-      // データ型エラーの場合
-      if (error.message.includes('invalid input syntax for type time')) {
-        return { 
-          status: 'error', 
-          message: 'データベース設定に問題があります。管理者にお問い合わせください。' 
-        }
-      }
-      
       if (error.message.includes('STANDARD_PLAN_ID')) {
         return { 
           status: 'error', 
