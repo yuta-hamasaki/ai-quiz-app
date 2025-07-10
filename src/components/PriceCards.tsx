@@ -39,8 +39,8 @@ export default async function PriceCards({ user }: { user: any }) {
   const isSubscribed = user ? await getIsSubscribed(user.id) : null;
 
     const showRegister = !user;
-    const showPayButton = user && !isSubscribed?.is_subscribed;
-    const showPortalButton = user && isSubscribed?.is_subscribed;
+    const showPayButton = user && !isSubscribed;
+    const showPortalButton = user && isSubscribed;
 
 
 
