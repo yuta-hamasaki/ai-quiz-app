@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams, useRouter, redirect } from 'next/navigation'
 import QuizCard from '@/components/QuizCard'
-import { createClient } from '@/utils/supabase/client'
 import { saveMistake } from '@/actions/mistakes'
+import { createClient } from '@/utils/supabase/client'
 
 interface Quiz {
   index: number
@@ -18,17 +18,87 @@ export default function QuizPage() {
   const [quizList, setQuizList] = useState<Quiz[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [user, setUser] = useState<any>(null)
-
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
+  const [authLoading, setAuthLoading] = useState<boolean>(true)
   const [isAnswered, setIsAnswered] = useState<boolean>(false)
   const [score, setScore] = useState<number>(0)
+  const [currentIndex, setCurrentIndex] = useState<number>(0)
 
   const searchParams = useSearchParams()
   const router = useRouter()
 
-  // 何問目かを取得
-  const [currentIndex, setCurrentIndex] = useState<number>(0)
+  const language = searchParams.get('language') || 'english'
+  const level = searchParams.get('level') || 'beginner'
 
+  // 認証チェック用useEffect
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const supabase = createClient()
+        const { data: { user } } = await supabase.auth.getUser()
+        
+        if (!user) {
+          redirect('/login')
+          return
+        }
+        
+        // user_profileから購読状況を取得
+        const { data: profile, error } = await supabase
+          .from('user_profile')
+          .select('is_subscribed')
+          .eq('id', user.id)
+          .single()
+        
+        if (error) {
+          console.error('Error fetching user profile:', error)
+          redirect('/login')
+          return
+        }
+        
+        setUser(user)
+        setIsSubscribed(profile?.is_subscribed || false)
+        setAuthLoading(false)
+        
+        // 購読していない場合は購読ページにリダイレクト
+        if (!profile?.is_subscribed) {
+          redirect('/subscription')
+        }
+      } catch (error) {
+        console.error('Auth check error:', error)
+        redirect('/login')
+      }
+    }
+    
+    checkAuth()
+  }, [])
 
+  // クイズデータ取得用useEffect
+  useEffect(() => {
+    if (!user || !isSubscribed || authLoading) return
+    
+    if (!language || !level) {
+      redirect('/')
+      return
+    }
+
+    const fetchQuiz = async () => {
+      try {
+        const res = await fetch(`/api/quiz?language=${language}&level=${level}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+        })
+
+        const data = await res.json()
+        setQuizList(data)
+        setLoading(false)
+      } catch (err) {
+        console.error('Fetch error:', err)
+        setLoading(false)
+      }
+    }
+
+    fetchQuiz()
+  }, [language, level, user, isSubscribed, authLoading])
 
   const handleNext = () => {
     setTimeout(() => {
@@ -47,35 +117,6 @@ export default function QuizPage() {
   }
 
   const currentQuiz = quizList[currentIndex]
-
-  const language = searchParams.get('language') || 'english'
-  const level = searchParams.get('level') || 'beginner'
-
-  if(!user){
-    redirect('/login')
-  }else if(!language || !level){
-      redirect('/')
-  } else{
-    useEffect(() => {
-    const fetchQuiz = async () => {
-      try {
-        const res = await fetch(`/api/quiz?language=${language}&level=${level}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-        })
-
-        const data = await res.json()
-        setQuizList(data)
-        setLoading(false)
-      } catch (err) {
-        console.error('Fetch error:', err)
-        setLoading(false)
-      }
-    }
-
-    fetchQuiz()
-  }, [language, level])
-  }
 
   const handleAnswer = async (selected: string, correct: string) => {
     if (isAnswered) return
@@ -111,12 +152,12 @@ export default function QuizPage() {
     handleNext()
   }
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-lg">クイズを読み込み中...</p>
+          <p className="text-lg">{authLoading ? '認証を確認中...' : 'クイズを読み込み中...'}</p>
         </div>
       </div>
     )

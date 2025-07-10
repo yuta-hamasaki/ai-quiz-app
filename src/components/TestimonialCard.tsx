@@ -30,7 +30,7 @@ export default function TestimonialCard({ testimonials }: {testimonials: Testimo
                   ))}
                 </div>
                 <blockquote className="text-xl md:text-2xl text-gray-800 leading-relaxed">
-                  "{testimonials[currentTestimonial].content}"
+                  &quot;{testimonials[currentTestimonial].content}&quot;
                 </blockquote>
                 <div className="space-y-2">
                   <div className="font-bold text-gray-900 text-lg">
