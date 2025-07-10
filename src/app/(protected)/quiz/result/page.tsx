@@ -101,7 +101,7 @@ export default function QuizResultPage() {
   }
 
   const handleRetry = () => {
-    router.push(`/quiz?language=${language}&level=${level}`)
+    router.push(`/`)
   }
 
   const handleHome = () => {
