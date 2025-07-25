@@ -119,7 +119,7 @@ export default function HomePage() {
               >
                 <option value="daily-conversation">日常会話</option>
                 <option value="business">ビジネス</option>
-                <option value="slang">スラング</option>
+                <option value="スラング">スラング</option>
                 {language === "english" && 
                 <>
                   <option value="toefl">TOEFL</option>
