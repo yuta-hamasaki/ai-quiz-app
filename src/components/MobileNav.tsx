@@ -1,5 +1,5 @@
 "use client"
-import { signOut } from '@/actions/auth'
+import PortalBtn from './PortalBtn'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
@@ -136,7 +136,14 @@ export default function MobileNav({ user, signOut }: MobileNavProps) {
                   <span className="mr-3" aria-hidden="true">📚</span>
                   間違いノート
                 </Link>
-                                <Link 
+                <div
+                  className="flex items-center px-3 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                  onClick={closeMobileMenu}
+                  role="menuitem"
+                >
+                  <PortalBtn/>
+                </div>
+                {/* <Link 
                   href="/dashboard" 
                   className="flex items-center px-3 py-3 text-white/90 hover:text-white hover:bg-white/10 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50"
                   onClick={closeMobileMenu}
@@ -144,7 +151,7 @@ export default function MobileNav({ user, signOut }: MobileNavProps) {
                 >
                   <span className="mr-3" aria-hidden="true">📊</span>
                   ダッシュボード
-                </Link>
+                </Link> */}
               </nav>
 
               {/* Logout button */}

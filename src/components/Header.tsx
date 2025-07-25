@@ -2,6 +2,7 @@ import { signOut } from '@/actions/auth'
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import MobileNav from './MobileNav'
+import PortalBtn from './PortalBtn'
 
 // ユーザー型定義
 interface User {
@@ -64,14 +65,15 @@ export default async function Header() {
                     <span className="mr-2" aria-hidden="true">🏠</span>
                     ホーム
                   </Link>
-                  <Link 
+                  {/* <Link 
                     href="/dashboard" 
                     className="px-4 py-2 text-white/90 hover:text-white hover:bg-white/10 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50"
                     aria-label="ダッシュボードへ移動"
                   >
                     <span className="mr-2" aria-hidden="true">📊</span>
                     ダッシュボード
-                  </Link>
+                  </Link> */}
+                  
                   <Link 
                     href="/mistakes" 
                     className="px-4 py-2 text-white/90 hover:text-white hover:bg-white/10 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50"
@@ -80,6 +82,12 @@ export default async function Header() {
                     <span className="mr-2" aria-hidden="true">📚</span>
                     間違いノート
                   </Link>
+                  <div
+                    className="px-4 py-2 text-white/90 hover:text-white hover:bg-white/10 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50"
+                    aria-label="サブスクリプション管理画面へ移動"
+                  >
+                    <PortalBtn/>
+                  </div>
                 </>
               )}
             </nav>

@@ -12,7 +12,7 @@ export default function PortalBtn() {
   }
   return (
     <button onClick={loadPortal}>
-      ポータル
+      サブスクリプション管理
     </button>
   )
 }

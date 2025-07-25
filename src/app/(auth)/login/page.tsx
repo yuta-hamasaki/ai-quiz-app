@@ -1,5 +1,5 @@
 import LoginForm from "@/components/LoginForm";
-import LoginGithub from "@/components/LoginGoogle";
+import LoginGoogle from "@/components/LoginGoogle";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -10,8 +10,8 @@ export default function LoginPage() {
           <h1 className="text-3xl w-full text-center font-bold mb-6">
             ログイン
           </h1>
+          <LoginGoogle />
           <LoginForm />
-          <LoginGithub />
           <div className="mt-2 flex items-center">
             <h1>{`新規登録はこちら`}</h1>
             <Link className="text-sm ml-2" href="/register">
