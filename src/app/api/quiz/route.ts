@@ -34,6 +34,7 @@ export async function POST(request: Request){
 
   - 必ず守る注意点: 
     - 単語はレベルに応じたものを選ぶこと
+    -簡単すぎる単語(Apple, Dogなど)は避けること
     - 選択肢（options）は正解を含めた4つの単語で、順序は必ずランダムにしてください。
     - 正解の単語は options の中のどの位置でも良いですが、必ず含めてください。
     - 正解の単語と意味は必ず含めること
@@ -49,7 +50,7 @@ export async function POST(request: Request){
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4.1-turbo',
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.7,
       }),
