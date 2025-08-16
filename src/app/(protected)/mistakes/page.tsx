@@ -132,21 +132,15 @@ export default function MistakesPage() {
     }
   }
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    })
-  }
-
   const getLanguageDisplay = (lang: string) => {
     const languages: { [key: string]: string } = {
       'english': '英語',
       'spanish': 'スペイン語',
-      'german': 'ドイツ語'
+      'german': 'ドイツ語',
+      'french': 'フランス語',
+      'korean': '韓国語',
+      'chinese': '中国語',
+      'dutch': 'オランダ語'
     }
     return languages[lang] || lang
   }
