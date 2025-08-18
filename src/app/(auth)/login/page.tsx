@@ -11,6 +11,7 @@ export default function LoginPage() {
             ログイン
           </h1>
           <LoginGoogle />
+          <p className="text-center">--- または ---</p>
           <LoginForm />
           <div className="mt-2 flex items-center">
             <h1>{`新規登録はこちら`}</h1>
