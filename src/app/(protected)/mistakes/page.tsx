@@ -206,6 +206,10 @@ export default function MistakesPage() {
                 <option value="english">英語</option>
                 <option value="spanish">スペイン語</option>
                 <option value="german">ドイツ語</option>
+                <option value="french">フランス語</option>
+                <option value="korean">韓国語</option>
+                <option value="chinese">中国語</option>
+                <option value="dutch">オランダ語</option>
               </select>
               
               <select
