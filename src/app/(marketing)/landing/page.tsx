@@ -3,16 +3,16 @@ import Link from 'next/link';
 import { features, testimonials } from '@/utils/landing/constants';
 import { createClient } from '@/utils/supabase/server';
 import PriceCards from '@/components/PriceCards';
-import { client } from '@/lib/microcmsClient';
+import { fetchLandingText} from '@/utils/landing/landingText';
 
 export default async function LandingPage() {
   const supabase = createClient();
   const { data: session } = await (await supabase).auth.getSession()
   const user= session.session?.user;
 
-  const landingText = await client.get({
-    endpoint: 'landing',
-  })
+  const landingText = await fetchLandingText();
+  console.log(landingText);
+
 
   return (
     <div className="min-h-screen bg-white">

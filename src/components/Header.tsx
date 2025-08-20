@@ -4,15 +4,7 @@ import Link from 'next/link'
 import MobileNav from './MobileNav'
 import PortalBtn from './PortalBtn'
 
-// ユーザー型定義
-interface User {
-  id: string
-  email?: string
-  user_metadata?: {
-    name?: string
-    avatar_url?: string
-  }
-}
+
 
 export default async function Header() {
   const supabase = createClient()
