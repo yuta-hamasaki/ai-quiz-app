@@ -3,7 +3,7 @@ import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import MobileNav from './MobileNav'
 import PortalBtn from './PortalBtn'
-
+import Image from 'next/image'
 
 
 export default async function Header() {
@@ -15,34 +15,21 @@ export default async function Header() {
   return (
     <header className="relative z-[9999]">
       {/* Main header */}
-      <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 shadow-lg backdrop-blur-sm">
+      <div className="bg-gradient-to-r from-blue-800 via-purple-800 to-indigo-800 shadow-lg backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             
             {/* Logo section */}
             <Link 
               href={user ? '/' : '/landing'}
-              className="flex items-center space-x-3 group"
+              className="flex items-center"
             >
-              <div className="flex items-center justify-center w-10 h-10 bg-white/20 rounded-xl group-hover:bg-white/30 group-hover:scale-105 transition-all duration-200 shadow-md">
-                <svg 
-                  className="w-6 h-6 text-white" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth={2} 
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" 
-                  />
-                </svg>
-              </div>
-              <h1 className="text-xl font-bold text-white group-hover:text-blue-100 transition-colors duration-200">
-                AI Word Quiz
-              </h1>
+              <Image
+                src="/logo4.svg"
+                alt="AI Vocab Logo"
+                width={150}
+                height={150}
+              />
             </Link>
 
             {/* Navigation */}
