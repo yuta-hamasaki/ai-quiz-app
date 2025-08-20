@@ -3,11 +3,16 @@ import Link from 'next/link';
 import { features, testimonials } from '@/utils/landing/constants';
 import { createClient } from '@/utils/supabase/server';
 import PriceCards from '@/components/PriceCards';
+import { client } from '@/lib/microcmsClient';
 
 export default async function LandingPage() {
   const supabase = createClient();
   const { data: session } = await (await supabase).auth.getSession()
   const user= session.session?.user;
+
+  const landingText = await client.get({
+    endpoint: 'landing',
+  })
 
   return (
     <div className="min-h-screen bg-white">
@@ -24,13 +29,11 @@ export default async function LandingPage() {
           <div className="text-center space-y-8">
             
             <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-              <span className="block mt-2">単語帳はもういらない</span>
+              <span className="block mt-2">{landingText.hero.title}</span>
             </h1>
             
             <p className="text-xm md:text-2xl text-blue-200 max-w-2xl mx-auto leading-relaxed">
-              1杯のコーヒー代で、単語帳100冊分以上の価値を提供。
-              <br />
-              最先端のAI技術により、複数の言語やテストに対応した単語学習がこれ一つで完結。
+              {landingText.hero.subtitle}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
@@ -103,10 +106,10 @@ export default async function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              なぜAI Word Quizが選ばれるのか
+              {landingText.feat.title}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              最新のAI技術と学習科学を組み合わせ、あなたに最適化された学習体験を提供します
+              {landingText.feat.subtitle}
             </p>
           </div>
           
@@ -186,7 +189,7 @@ export default async function LandingPage() {
       {/* Testimonials */}
       <section className="py-24 bg-white">
         <TestimonialCard
-          testimonials={testimonials}
+          testimonials={landingText.testimonials}
         />
       </section>
 
