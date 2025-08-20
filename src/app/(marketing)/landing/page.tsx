@@ -10,10 +10,10 @@ export default async function LandingPage() {
   const { data: session } = await (await supabase).auth.getSession()
   const user= session.session?.user;
 
-const data = await client.get({
+const landingText = await client.get({
   endpoint: 'landing',
 })   
-const landingText = data.contents
+
 
   return (
     <div className="min-h-screen bg-white">
