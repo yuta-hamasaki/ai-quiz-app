@@ -40,12 +40,9 @@ const landingText = await client.get({
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
               <Link href="/register" className="w-full sm:w-auto">
               <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold rounded-2xl shadow-2xl hover:shadow-3xl hover:scale-105 transform transition-all duration-300 text-lg">
-                🚀 無料体験を始める
+                🚀 新規登録
               </button>
               </Link>
-              <button className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-2xl hover:bg-white/20 transition-all duration-300 text-lg">
-                📹 デモを見る
-              </button>
             </div>
             
             <div className="pt-8 text-sm text-blue-200">
