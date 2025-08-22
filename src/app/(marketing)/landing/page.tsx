@@ -43,6 +43,11 @@ const landingText = await client.get({
                 🚀 新規登録
               </button>
               </Link>
+              <Link href="/login" className="w-full sm:w-auto">
+                <button className="px-8 py-4 bg-gradient-to-r from-gray-500 to-gray-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-3xl hover:scale-105 transform transition-all duration-300 text-lg">
+                  ログイン
+                </button>
+              </Link>
             </div>
             
             <div className="pt-8 text-sm text-blue-200">
